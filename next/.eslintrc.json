@@ -6,7 +6,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "prettier"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -21,5 +22,9 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "react/jsx-filenament-extension": [2, {
+            "extensions": [".jsx", ".tsx"]
+        }],
+        "react/no-array-index-key": [2, false]
     }
 }
