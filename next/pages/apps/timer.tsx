@@ -3,37 +3,34 @@ import Layout from '../../components/layout';
 
 const Timer: React.FC = () => {
   const [startTimer, setStartTimer] = React.useState<boolean>(false);
-  const [time, setTime] = React.useState<number>(80);
+  const [time, setTime] = React.useState<number>(10);
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      if (startTimer) {
-        setTime(time - 1);
-        console.log(time);
-      }
+    console.log(startTimer);
+  }, [startTimer]);
+
+  let interval;
+
+  if (startTimer && time >= 0) {
+    interval = setInterval(() => {
+      setTime(time - 1);
     }, 1000);
+  }
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [time]);
-
-  const minutes: number = time >= 60 ? Math.floor(time / 60) : 0;
-  const seconds: number = time - minutes * 60;
+  if (!startTimer || time == 0) {
+    clearInterval(interval);
+  }
 
   return (
     <Layout>
       <article className="min-h-screen container mx-auto">
-        <p>
-          {minutes} {minutes > 1 ? 'minutes' : 'minute'} and <br />
-          {seconds} {seconds > 1 ? 'seconds' : 'seconds'}
-        </p>
+        <p>{time}</p>
         <button
           onClick={() => {
             setStartTimer(!startTimer);
           }}
         >
-          Toggle
+          {startTimer ? 'Pause' : 'Start'}
         </button>
       </article>
     </Layout>
